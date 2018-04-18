@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Eventos SVG animate</title>
+    <script src="js/snap.svg-min.js"></script>
+    <script>
+        window.addEventListener("load", function(){
+            var s = Snap(1000, 500);
+            
+            var circulo = s.circle(150, 150, 50);
+
+            circulo.attr({
+                fill: "#00794f",
+                stroke: "#000",
+                strokeWidth: 10
+            });
+
+            //Evento click
+            //Función llamada durante el evento click
+            function clickEvent(){
+                console.log("hice click");
+                circulo.unclick(); //Removemos el evento click de un objeto
+            }
+
+            //click aplicado al objeto - "circulo"
+            circulo.click( clickEvent );
+
+            //Evento doble click
+            //Función llamada durante el evento dobleclick
+            function dobleclickEvent(){
+                console.log("Hice doble click");
+                circulo.undblclick(); //Removemos el evento dobleclick de un objeto
+            }
+            //Boble click aplicado al objeto - círculo
+            circulo.dblclick( dobleclickEvent );
+
+            //Funcion Drag
+            function onMove(dx, dy, x, y){
+                console.log( "dx: " + dx + " dy: "+ dy + " x: " + x + " y: " + y );
+                //Pasamos parámetros x, y al objeto
+                circulo.attr({
+                    cx: x,
+                    cy: y
+                });
+            }
+
+            function onStart(x, y){
+                console.log( "iniciado en X: " + x + " iniciado en Y: " + y );
+            }
+
+            function onEnd( e ){
+                console.log("Terminaste de Arrastrar");
+            }
+            circulo.drag( onMove, onStart, onEnd );
+            
+            //Evento Hover
+            //Funcion llamada durante el evento hover
+            function hoverEventIn(){
+
+                circulo.animate({
+                    r: 60
+                }, 300);
+            }
+            function hoverEventOut(){
+
+                circulo.animate({
+                    r: 50
+                }, 300);
+            }
+
+            circulo.mouseover( hoverEventIn );
+            circulo.mouseout( hoverEventOut );
+
+        });
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

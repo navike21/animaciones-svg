@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SNAP SVG con imágenes externas</title>
+    <script src="js/snap.svg-min.js"></script>
+    <script>
+        window.addEventListener("load", function(){
+            var s = Snap(500, 500); //Espacio de trabajo
+
+            //Cargamos una imagen externa SVG con dos parámetros la ruta de la imagen y una función
+            Snap.load("images/rombo.svg", function(f){
+                
+                //Creación de una matrix
+                var matrix = new Snap.matrix();
+                //Traslación de la imagen importada en el area de trabajo en el ejeX, ejeY
+                matrix.translate(150, 150);
+                // matrix.scale(1500);
+
+                //Variable para obtener la figura importada
+                var circulo = f.select("path"); //Regresa todos los graficos de la imagen importada
+                //Aplicamos dentro de los atributos del objeto - Imagen importada, los parámetros de la matrix
+                // circulo.attr({
+                //     transform: matrix,
+                //     fill: "#000",
+                //     strokeDasharray: 400
+                // });
+
+                // circulo.animate(
+                //     {strokeDasharray: 0}, // animated properties
+                //     3000, // duration
+                //     mina.easein, // easing
+                //     animateLines1 // callback
+                // );
+                
+                // var contorno = f.select("#contorno2");
+
+                // contorno.attr({
+                //     transform: matrix,
+                //     fill: "#00f"
+                // });
+                // Reset state
+                circulo.attr({
+                    strokeDasharray: 166,
+                    strokeWidth: 2,
+                    stroke: "#FFF"
+                    // opacity: 0,
+                });
+
+                
+                
+                function animateLines1() {
+                    
+                    // Animate and loop
+                    circulo.animate(
+                        {
+                            strokeDasharray: 700,
+                            stroke: "#000",
+                            // opacity: 1
+                        }, // animated properties
+                        500 // duration
+                        // mina.easein, // easing
+                        // llenar // callback
+                    );
+                }
+                function animateLines2() {
+                    
+                    // Animate and loop
+                    circulo.animate(
+                        {
+                            strokeDasharray: 166,
+                            stroke: "#FFF"
+                            // opacity: 0
+                        }, // animated properties
+                        500 // duration
+                        // mina.easein, // easing
+                        // animateLines1 // callback
+                    );
+                }
+                
+                
+
+                // circulo.drag();
+
+                // Agregamos la figura importada en el espacio de trabajo
+                s.append(circulo);
+                // s.append(contorno);
+                // animateLines1();
+                s.mouseover(animateLines1);
+                s.mouseout(animateLines2);
+            });
+        });
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
